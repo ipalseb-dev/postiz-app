@@ -184,7 +184,7 @@ export const Providers = [
     component: TumblrProvider,
   },
   {
-    identifier: 'blog-crea-stack',
+    identifier: 'blogcreastack',
     component: BlogCreaStackProvider,
   },
 ];
