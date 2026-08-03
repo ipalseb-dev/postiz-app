@@ -702,7 +702,7 @@ export class LinkedinPageProvider
             actor: `urn:li:organization:${integration.internalId}`,
             object: id,
             message: {
-              text: this.fixText(fields.post),
+              text: this.fixCommentText(fields.post),
             },
           }),
         }

@@ -495,6 +495,12 @@ export class LinkedinProvider extends SocialAbstract implements SocialProvider {
     ).json();
   }
 
+  /**
+   * Escapes the reserved characters of LinkedIn's "Little Text Format", the syntax used by the
+   * `commentary` field of the REST posts API. LinkedIn unescapes them when rendering the post.
+   *
+   * Only use it for LTF fields. Comments are NOT one of them — see `fixCommentText`.
+   */
   protected fixText(text: string) {
     const pattern = /@\[.+?]\(urn:li:organization.+?\)/g;
     const matches = text.match(pattern) || [];
@@ -528,6 +534,19 @@ export class LinkedinProvider extends SocialAbstract implements SocialProvider {
     }, [] as string[]);
 
     return connectAll.join('');
+  }
+
+  /**
+   * Comments go to `/v2/socialActions/{urn}/comments`, whose `message.text` is PLAIN TEXT: it does
+   * not parse Little Text Format, so LinkedIn does not unescape anything and every backslash added
+   * by `fixText` is rendered literally. A URL with UTM parameters posted as a comment came out as
+   * `utm\_source=...&utm\_medium=...`; the same happens with `#`, `*`, `[`, `]`, `~` and `@`.
+   *
+   * Mentions in comments need `message.attributes` (offset + urn), which we do not build, so the
+   * text is sent through unchanged.
+   */
+  protected fixCommentText(text: string) {
+    return text;
   }
 
   private async convertImagesToPdfCarousel(
@@ -807,7 +826,7 @@ export class LinkedinProvider extends SocialAbstract implements SocialProvider {
           actor,
           object: parentPostId,
           message: {
-            text: this.fixText(post.message),
+            text: this.fixCommentText(post.message),
           },
         }),
       }
