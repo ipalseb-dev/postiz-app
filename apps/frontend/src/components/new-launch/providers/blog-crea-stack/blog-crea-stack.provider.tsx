@@ -56,6 +56,5 @@ export default withProvider({
   SettingsComponent: BlogCreaStackSettings,
   CustomPreviewComponent: undefined,
   dto: BlogCreaStackDto,
-  checkValidity: undefined,
   maximumCharacters: 100000,
 });
