@@ -21,7 +21,7 @@ export function getMaxSize(mimeType: string): number {
   if (mimeType.startsWith('image/')) {
     return 10 * 1024 * 1024; // 10 MB
   } else if (mimeType.startsWith('video/')) {
-    return 1024 * 1024 * 1024; // 1 GB
+    return 2 * 1024 * 1024 * 1024; // 2 GB
   } else {
     throw new BadRequestException('Unsupported file type.');
   }

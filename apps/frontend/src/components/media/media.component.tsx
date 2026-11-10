@@ -211,7 +211,7 @@ export const showMediaBox = (
   showModalEmitter.emit('show-modal', callback);
 };
 const CHUNK_SIZE = 1024 * 1024;
-const MAX_UPLOAD_SIZE = 1024 * 1024 * 1024; // 1 GB
+const MAX_UPLOAD_SIZE = 2 * 1024 * 1024 * 1024; // 2 GB
 export const MediaBox: FC<{
   setMedia: (params: { id: string; path: string }[]) => void;
   standalone?: boolean;
@@ -507,7 +507,7 @@ export const MediaBox: FC<{
             <div className="hidden mobile:block basis-full text-[14px] font-[600]">
               {t(
                 'select_or_upload_pictures_max_1gb',
-                'Select or upload pictures (maximum 1 GB per upload).'
+                'Select or upload pictures (maximum 2 GB per upload).'
               )}
             </div>
           )}
@@ -576,7 +576,7 @@ export const MediaBox: FC<{
                 <div className="whitespace-pre-line text-newTextColor/[0.6] text-center">
                   {t(
                     'select_or_upload_pictures_max_1gb',
-                    'Select or upload pictures (maximum 1 GB per upload).'
+                    'Select or upload pictures (maximum 2 GB per upload).'
                   )}{' '}
                   {'\n'}
                   {t(
